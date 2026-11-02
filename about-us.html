@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | HINEI</title>
+    
+    <!-- Google Fonts: Montserrat & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* CSS Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #10367d;
+            --secondary: #4b83dc;
+            --green: #0db02c;
+            --yellow: #fed700;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #f4f4f4;
+            --gray-bg: #f8f9fa;
+            --border: #e0e0e0;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', 'Batica Sans', sans-serif;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            scroll-behavior: smooth; /* Smooth scrolling for search */
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            padding-bottom: 70px; /* Space for mobile bottom nav */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            gap: 8px;
+        }
+
+        .btn-yellow {
+            background-color: var(--yellow);
+            color: var(--primary);
+        }
+        .btn-yellow:hover { background-color: #e5c200; }
+
+        /* ========== HEADER & DESKTOP NAV ========== */
+        .site-header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        /* Logo Area */
+        .logo-placeholder {
+            display: flex;
+            align-items: center;
+        }
+        
+        .site-logo {
+            height: 120px;
+            width: auto;
+            max-width: 250px;
+            object-fit: contain;
+        }
+
+        /* Desktop Nav */
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .desktop-nav a {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            position: relative;
+            padding-bottom: 6px;
+            transition: color 0.3s;
+        }
+
+        .desktop-nav a:hover, .desktop-nav a.active {
+            color: var(--primary);
+        }
+
+        .desktop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: var(--yellow);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .desktop-nav a:hover::after, .desktop-nav a.active::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .search-icon:hover {
+            color: var(--secondary);
+        }
+
+        /* Mobile Header Actions */
+        .mobile-header-actions {
+            display: none;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Mobile Dropdown Menu */
+        .mobile-dropdown {
+            display: none;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            flex-direction: column;
+            padding: 20px;
+            z-index: 999;
+        }
+        .mobile-dropdown.active {
+            display: flex;
+        }
+        .mobile-dropdown a {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            color: var(--primary);
+            font-family: var(--font-heading);
+        }
+        .mobile-dropdown .btn {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        /* ========== PAGE BANNER (About Us) ========== */
+        .page-banner {
+            position: relative;
+            height: 300px;
+            background-image: url('https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .page-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(16, 54, 125, 0.8); 
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            color: var(--white);
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .banner-content h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .banner-content p {
+            font-size: 1.2rem;
+            color: var(--white);
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .section-padding {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--yellow);
+            border-radius: 2px;
+        }
+
+        .who-we-are-text {
+            font-size: 1.05rem;
+            color: #555;
+            max-width: 900px;
+            line-height: 1.8;
+        }
+
+        /* Mission, Vision, Values Grid */
+        .mvv-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .mvv-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .mvv-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .mvv-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--green);
+            background: rgba(13, 176, 44, 0.1);
+            border-radius: 50%;
+        }
+
+        .mvv-card:nth-child(2) .mvv-icon {
+            color: var(--secondary);
+            background: rgba(75, 131, 220, 0.1);
+        }
+
+        .mvv-card:nth-child(3) .mvv-icon {
+            color: var(--primary);
+            background: rgba(16, 54, 125, 0.1);
+        }
+
+        .mvv-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .mvv-card p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Objectives List */
+        .objectives-list {
+            list-style: none;
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .objectives-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .objectives-list li i {
+            color: var(--green);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        /* Team Section */
+        .team-section-bg {
+            background-color: var(--gray-bg);
+            border-radius: 12px;
+            padding: 40px 30px;
+            margin-bottom: 60px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .team-member {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e0e0e0;
+            color: #999;
+            overflow: hidden; /* Ensures icon stays inside */
+        }
+
+        /* Style for the user icon to fill the circle */
+        .team-img i {
+            font-size: 8rem;
+            margin-top: 15px; /* Pushes the bust down to fill the circle nicely */
+            color: #c0c0c0;
+        }
+
+        .team-member h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .team-member p {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        /* ========== FOOTER ========== */
+        .site-footer { background-color: var(--primary); color: var(--white); padding: 60px 0 20px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+        
+        .footer-logo {
+            height: 120px;
+            width: auto;
+            max-width: 250px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p { font-size: 0.9rem; opacity: 0.8; margin-top: 10px; max-width: 300px; }
+        .footer-column h4 { color: var(--white); font-size: 1.1rem; margin-bottom: 20px; }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 12px; }
+        .footer-column ul a { font-size: 0.9rem; opacity: 0.8; transition: opacity 0.3s; }
+        .footer-column ul a:hover { opacity: 1; color: var(--yellow); }
+        .footer-contact li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px; }
+        .footer-contact i { color: var(--yellow); margin-top: 4px; }
+        .newsletter-form { display: flex; margin-top: 15px; }
+        .newsletter-form input { flex: 1; padding: 10px 15px; border: none; border-radius: 4px 0 0 4px; font-family: var(--font-body); outline: none; }
+        .newsletter-form button { background: var(--green); color: var(--white); border: none; padding: 10px 20px; border-radius: 0 4px 4px 0; cursor: pointer; font-weight: 600; }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 35px; height: 35px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .social-icons a:hover { background: var(--yellow); color: var(--primary); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; opacity: 0.8; flex-wrap: wrap; gap: 10px; }
+        .footer-bottom-links a { margin: 0 10px; }
+
+        /* ========== MOBILE BOTTOM NAV ========== */
+        .mobile-bottom-nav { display: none; }
+
+        /* ========== SEARCH MODAL ========== */
+        .search-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 2000; align-items: flex-start; justify-content: center; padding-top: 10vh;
+        }
+        .search-modal.active { display: flex; }
+        .search-modal-content {
+            background: var(--white); width: 90%; max-width: 600px; border-radius: 12px;
+            padding: 30px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .close-search { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #999; }
+        .search-modal-content h2 { margin-bottom: 20px; font-size: 1.5rem; }
+        .search-input-wrapper { display: flex; gap: 10px; margin-bottom: 20px; }
+        .search-input-wrapper input {
+            flex: 1; padding: 12px 15px; border: 1px solid var(--border);
+            border-radius: 10px; font-family: var(--font-body); font-size: 1rem; outline: none;
+        }
+        .search-input-wrapper input:focus { border-color: var(--primary); }
+        .search-input-wrapper button {
+            background: var(--primary); color: var(--white); border: none;
+            padding: 0 20px; border-radius: 10px; font-weight: 600; cursor: pointer;
+        }
+        .search-suggestions { list-style: none; max-height: 300px; overflow-y: auto; }
+        .search-suggestions li {
+            padding: 12px 15px; border-bottom: 1px solid var(--border);
+            cursor: pointer; transition: background 0.2s; border-radius: 8px;
+        }
+        .search-suggestions li:hover { background: var(--gray-bg); color: var(--primary); }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .mvv-grid { grid-template-columns: 1fr 1fr; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            /* Header changes */
+            .desktop-nav, .header-actions { display: none; }
+            .mobile-header-actions { display: flex; }
+            .header-inner { justify-content: space-between; } 
+
+            body { padding-bottom: 70px; }
+            
+            /* Force mobile spacing to prevent touching edges */
+            .container { 
+                padding-left: 24px !important; 
+                padding-right: 24px !important; 
+            }
+            
+            .section-padding { padding: 40px 0; }
+            .mvv-grid, .team-grid { gap: 20px; }
+
+            /* Mobile Bottom Nav */
+            .mobile-bottom-nav {
+                display: flex; position: fixed; bottom: 0; left: 0; width: 100%;
+                background: var(--white); box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                justify-content: space-around; align-items: center; padding: 10px 0; z-index: 1000;
+            }
+            .mobile-nav-item {
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                color: #777; font-size: 0.7rem; text-decoration: none; transition: color 0.3s;
+            }
+            .mobile-nav-item i { font-size: 1.4rem; margin-bottom: 4px; }
+            .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--primary); }
+
+            /* Banner */
+            .page-banner { height: 250px; }
+            .banner-content h1 { font-size: 2.5rem; }
+            .banner-content p { font-size: 1rem; }
+
+            /* Content adjustments */
+            .mvv-grid { grid-template-columns: 1fr; }
+            .objectives-list { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+
+            /* Adjust Team Background padding on mobile */
+            .team-section-bg {
+                padding: 30px 20px;
+            }
+
+            /* Footer centering */
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-brand { display: flex; flex-direction: column; align-items: center; }
+            .social-icons { justify-content: center; }
+            .newsletter-form { justify-content: center; max-width: 300px; margin: 15px auto 0; }
+            .footer-contact li { justify-content: center; }
+            .footer-bottom { flex-direction: column; text-align: center; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <!-- Logo Area -->
+            <a href="index.html" class="logo-placeholder">
+                <img src="nesi.png" alt="HINEI Logo" class="site-logo">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About Us</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+
+            <!-- Header Actions (Desktop) -->
+            <div class="header-actions">
+                <i class="fas fa-search search-icon" id="desktopSearchBtn"></i>
+                <a href="get-involved.html" class="btn btn-yellow">Get Involved</a>
+            </div>
+
+            <!-- Mobile Header Actions -->
+            <div class="mobile-header-actions">
+                <i class="fas fa-search" id="mobileSearchBtn"></i>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div class="mobile-dropdown" id="mobileMenu">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="news.html">News</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="get-involved.html" class="btn btn-yellow" style="text-align: center; justify-content: center;">Get Involved</a>
+        </div>
+    </header>
+
+    <!-- PAGE BANNER -->
+    <section class="page-banner">
+        <div class="banner-content">
+            <h1>About Us</h1>
+            <p>Health Education. Stronger Communities.</p>
+        </div>
+    </section>
+
+    <!-- WHO WE ARE & MISSION/VISION/VALUES -->
+    <section class="container section-padding" id="who-we-are">
+        <h2 class="section-title">Who We Are</h2>
+        <p class="who-we-are-text">
+            The Health Independence and Nutrition Education Initiative (HINEI) is a community-focused organization committed to preventing noncommunicable diseases through nutrition education, health promotion and community empowerment. We believe that lasting health independence starts with accessible knowledge and practical skills.
+        </p>
+
+        <div class="mvv-grid">
+            <!-- Mission -->
+            <div class="mvv-card">
+                <div class="mvv-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>Our Mission</h3>
+                <p>To empower individuals and communities with the knowledge, skills, and resources to take charge of their own health through nutrition education, while raising awareness of noncommunicable diseases.</p>
+            </div>
+            <!-- Vision -->
+            <div class="mvv-card">
+                <div class="mvv-icon"><i class="fas fa-eye"></i></div>
+                <h3>Our Vision</h3>
+                <p>A world where every person has the knowledge and confidence to achieve lasting health independence, and where communities are resilient against the growing burden of noncommunicable diseases.</p>
+            </div>
+            <!-- Values -->
+            <div class="mvv-card">
+                <div class="mvv-icon"><i class="fas fa-hands-holding-circle"></i></div>
+                <h3>Our Values</h3>
+                <p>We are driven by integrity, community empowerment, scientific evidence, and a deep commitment to equity and compassion in health education.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR OBJECTIVES -->
+    <section class="container section-padding" id="objectives" style="padding-top: 0;">
+        <h2 class="section-title">Our Objectives</h2>
+        <ul class="objectives-list">
+            <li><i class="fas fa-check-circle"></i> Improve nutrition knowledge and awareness.</li>
+            <li><i class="fas fa-check-circle"></i> Promote healthy eating habits and balanced diets.</li>
+            <li><i class="fas fa-check-circle"></i> Raise awareness of NCDs and their risk factors.</li>
+            <li><i class="fas fa-check-circle"></i> Encourage physical activity and healthy lifestyles.</li>
+            <li><i class="fas fa-check-circle"></i> Build community capacity for informed health decisions.</li>
+            <li><i class="fas fa-check-circle"></i> Collaborate with partners to promote preventive health.</li>
+            <li><i class="fas fa-check-circle"></i> Develop sustainable, evidence-based programmes.</li>
+        </ul>
+    </section>
+
+    <!-- OUR TEAM -->
+    <div class="container" id="team">
+        <section class="team-section-bg">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <!-- Member 1 (Founder) -->
+                <div class="team-member">
+                    <img src="ceo.jpg" alt="Mr. George Chirmah" class="team-img">
+                    <h4>Mr. George Chirmah</h4>
+                    <p>Founder & Executive Director</p>
+                </div>
+                <!-- Member 2 (Vacant) -->
+                <div class="team-member">
+                    <div class="team-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Vacant</h4>
+                    <p>Programmes Manager</p>
+                </div>
+                <!-- Member 3 (Vacant) -->
+                <div class="team-member">
+                    <div class="team-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Vacant</h4>
+                    <p>Community Outreach Lead</p>
+                </div>
+                <!-- Member 4 (Vacant) -->
+                <div class="team-member">
+                    <div class="team-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Vacant</h4>
+                    <p>Finance Officer</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-placeholder">
+                        <img src="nesi1.png" alt="HINEI Logo" class="site-logo footer-logo">
+                    </a>
+                    <p>Empowering Health Through Nutrition</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Nutrition Education</a></li>
+                        <li><a href="#">NCD Awareness</a></li>
+                        <li><a href="#">Programmes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Get Involved</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">Partner with Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Stay Connected</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 15px;">Join our community for updates, health tips and events.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <ul class="footer-contact" style="margin-top: 20px;">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Drive, Lilongwe, Malawi</li>
+                        <li><i class="fas fa-envelope"></i> info@hinei.org</li>
+                        <li><i class="fas fa-phone"></i> +265 99 123 4567</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>&copy; 2025 HINEI. All rights reserved.</div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a> | 
+                    <a href="#">Terms of Use</a> | 
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item active">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a>
+        <a href="news.html" class="mobile-nav-item">
+            <i class="fas fa-newspaper"></i>
+            <span>News</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-item">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+        <a href="#" class="mobile-nav-item">
+            <i class="fas fa-hands-helping" style="color: var(--green);"></i>
+            <span style="color: var(--green); font-weight: 600;">Join Us</span>
+        </a>
+    </nav>
+
+    <!-- SEARCH MODAL -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-modal-content">
+            <span class="close-search" id="closeSearch">&times;</span>
+            <h2>Search HINEI</h2>
+            <div class="search-input-wrapper">
+                <input type="text" id="searchInput" placeholder="Type to search (e.g., Nutrition, NCDs, Contact)..." autocomplete="off">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <ul class="search-suggestions" id="searchSuggestions">
+                <!-- Suggestions will be populated via JS -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- 1. MOBILE MENU TOGGLE ---
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if(mobileMenu.classList.contains('active')){
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // --- 2. SEARCH MODAL LOGIC ---
+            const searchModal = document.getElementById('searchModal');
+            const desktopSearchBtn = document.getElementById('desktopSearchBtn');
+            const mobileSearchBtn = document.getElementById('mobileSearchBtn');
+            const closeSearch = document.getElementById('closeSearch');
+            const searchInput = document.getElementById('searchInput');
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            const searchBtn = document.getElementById('searchBtn');
+
+            // Updated Search Data to include IDs for on-page scrolling
+            const searchData = [
+                { title: "Who We Are (Introduction)", target: "#who-we-are" },
+                { title: "Our Mission", target: "#who-we-are" },
+                { title: "Our Vision", target: "#who-we-are" },
+                { title: "Our Values", target: "#who-we-are" },
+                { title: "Our Objectives", target: "#objectives" },
+                { title: "Our Team / Meet the Team", target: "#team" },
+                { title: "Founder - Mr. George Chirmah", target: "#team" },
+                { title: "Contact Us / Contact Info", target: "contact.html" },
+                { title: "Contact Phone Number & Email", target: "contact.html" },
+                { title: "Location & Office Address", target: "contact.html" },
+                { title: "Nutrition Education Resources", target: "index.html" },
+                { title: "NCD Awareness & Prevention", target: "index.html" },
+                { title: "Latest News & Events", target: "news.html" },
+                { title: "Get Involved / Volunteer", target: "get-involved.html" }
+            ];
+
+            function openSearch() {
+                searchModal.classList.add('active');
+                searchInput.focus();
+            }
+
+            desktopSearchBtn.addEventListener('click', openSearch);
+            mobileSearchBtn.addEventListener('click', openSearch);
+
+            closeSearch.addEventListener('click', function() {
+                searchModal.classList.remove('active');
+                searchInput.value = '';
+                searchSuggestions.innerHTML = '';
+            });
+
+            searchModal.addEventListener('click', function(e) {
+                if(e.target === searchModal) {
+                    searchModal.classList.remove('active');
+                    searchInput.value = '';
+                    searchSuggestions.innerHTML = '';
+                }
+            });
+
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value.toLowerCase();
+                searchSuggestions.innerHTML = '';
+                
+                if(query.length > 0) {
+                    const filtered = searchData.filter(item => 
+                        item.title.toLowerCase().includes(query)
+                    );
+
+                    if(filtered.length > 0) {
+                        filtered.forEach(item => {
+                            const li = document.createElement('li');
+                            li.textContent = item.title;
+                            li.addEventListener('click', function() {
+                                // Close modal
+                                searchModal.classList.remove('active');
+                                searchInput.value = '';
+                                searchSuggestions.innerHTML = '';
+                                
+                                // Navigation Logic
+                                if(item.target.startsWith("#")) {
+                                    // It's an on-page anchor
+                                    const targetElement = document.querySelector(item.target);
+                                    if(targetElement) {
+                                        // Scroll to the element, offsetting for the sticky header
+                                        const headerHeight = document.querySelector('.site-header').offsetHeight;
+                                        const elementPosition = targetElement.getBoundingClientRect().top;
+                                        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20; // 20px extra padding
+                                        
+                                        window.scrollTo({
+                                            top: offsetPosition,
+                                            behavior: 'smooth'
+                                        });
+                                    }
+                                } else {
+                                    // It's a different page
+                                    window.location.href = item.target;
+                                }
+                            });
+                            searchSuggestions.appendChild(li);
+                        });
+                    } else {
+                        const li = document.createElement('li');
+                        li.textContent = "No results found.";
+                        li.style.cursor = "default";
+                        searchSuggestions.appendChild(li);
+                    }
+                }
+            });
+
+            searchBtn.addEventListener('click', function() {
+                const firstSuggestion = searchSuggestions.querySelector('li');
+                if(firstSuggestion && firstSuggestion.textContent !== "No results found.") {
+                    firstSuggestion.click();
+                }
+            });
+
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    searchBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

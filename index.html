@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HINEI | Health Independence & Nutrition Education Initiative</title>
+    
+    <!-- Google Fonts: Montserrat & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* CSS Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #10367d;
+            --secondary: #4b83dc;
+            --green: #0db02c;
+            --yellow: #fed700;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #f4f4f4;
+            --gray-bg: #f8f9fa;
+            --border: #e0e0e0;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', 'Batica Sans', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            padding-bottom: 70px; /* Space for mobile bottom nav */
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            gap: 8px;
+        }
+
+        .btn-green {
+            background-color: var(--green);
+            color: var(--white);
+        }
+        .btn-green:hover { background-color: #0a8a22; }
+
+        .btn-yellow {
+            background-color: var(--yellow);
+            color: var(--primary);
+        }
+        .btn-yellow:hover { background-color: #e5c200; }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        .btn-outline:hover { 
+            background-color: var(--yellow); 
+            color: var(--primary); 
+            border-color: var(--yellow);
+        }
+
+        /* ========== HEADER & DESKTOP NAV ========== */
+        .site-header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        /* Logo Area */
+        .logo-placeholder {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Logo Image Style */
+        .site-logo {
+            height: 120px; /* Adjusted slightly */
+            width: auto;
+            max-width: 250px; /* Increased to accommodate full logo without text */
+            object-fit: contain;
+        }
+
+        /* Desktop Nav */
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .desktop-nav a {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            position: relative;
+            padding-bottom: 6px;
+            transition: color 0.3s;
+        }
+
+        .desktop-nav a:hover, .desktop-nav a.active {
+            color: var(--primary);
+        }
+
+        .desktop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: var(--yellow);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .desktop-nav a:hover::after, .desktop-nav a.active::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .search-icon:hover {
+            color: var(--secondary);
+        }
+
+        /* Mobile Header Actions */
+        .mobile-header-actions {
+            display: none;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Mobile Dropdown Menu */
+        .mobile-dropdown {
+            display: none;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            flex-direction: column;
+            padding: 20px;
+            z-index: 999;
+        }
+        .mobile-dropdown.active {
+            display: flex;
+        }
+        .mobile-dropdown a {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            color: var(--primary);
+            font-family: var(--font-heading);
+        }
+        .mobile-dropdown .btn {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(16, 54, 125, 0.75); 
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: var(--white);
+            max-width: 900px;
+            padding: 0 20px;
+            margin-top: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero-content h1 span {
+            color: var(--yellow);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========== SEARCH MODAL ========== */
+        .search-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 10vh;
+        }
+
+        .search-modal.active {
+            display: flex;
+        }
+
+        .search-modal-content {
+            background: var(--white);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .close-search {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .search-modal-content h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .search-input-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input-wrapper input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-input-wrapper input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-input-wrapper button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .search-suggestions {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .search-suggestions li {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 8px;
+        }
+
+        .search-suggestions li:hover {
+            background: var(--gray-bg);
+            color: var(--primary);
+        }
+
+        /* ========== OTHER SECTIONS ========== */
+        .mission-vision { padding: 60px 0; display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 20px; }
+        .mv-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .mv-icon { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .mv-card:nth-child(1) .mv-icon { background: rgba(13, 176, 44, 0.1); color: var(--green); }
+        .mv-card:nth-child(2) .mv-icon { background: rgba(254, 215, 0, 0.2); color: #d4b100; }
+        .mv-card h3 { margin-bottom: 15px; font-size: 1.5rem; }
+        .mv-card p { font-size: 0.95rem; color: #555; }
+        .mv-image-card { border-radius: 12px; overflow: hidden; position: relative; display: flex; align-items: flex-end; }
+        .mv-image-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .mv-image-overlay { position: relative; z-index: 2; background: linear-gradient(to top, var(--primary), transparent); width: 100%; padding: 40px 30px 30px; color: var(--white); }
+        .mv-image-overlay h3 { color: var(--white); font-size: 1.8rem; margin-bottom: 5px; }
+        .mv-image-overlay p { color: var(--yellow); font-weight: 600; font-size: 1.1rem; }
+
+        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+        .section-title { font-size: 1.8rem; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background-color: var(--yellow); border-radius: 2px; }
+        
+        .focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: var(--gray-bg); padding: 30px; border-radius: 12px; }
+        .focus-item { text-align: center; padding: 20px 10px; background: var(--white); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .focus-icon { width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--white); }
+        .focus-item:nth-child(1) .focus-icon { background: var(--green); }
+        .focus-item:nth-child(2) .focus-icon { background: var(--secondary); }
+        .focus-item:nth-child(3) .focus-icon { background: var(--green); }
+        .focus-item:nth-child(4) .focus-icon { background: var(--secondary); }
+        .focus-item h4 { font-size: 1rem; margin-bottom: 5px; }
+        .focus-item p { font-size: 0.8rem; color: #666; }
+
+        .impact-section { background-color: #f0f7f1; border-radius: 12px; padding: 30px; }
+        .impact-stats { display: flex; justify-content: space-between; text-align: center; margin-top: 30px; }
+        .stat-item i { font-size: 2.5rem; color: var(--green); margin-bottom: 10px; }
+        .stat-item h4 { font-size: 1.8rem; color: var(--green); }
+        .stat-item p { font-size: 0.9rem; font-weight: 600; color: var(--text-dark); }
+        .impact-footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; font-family: var(--font-heading); font-weight: 600; color: var(--primary); font-size: 0.9rem; }
+
+        .resources-section { margin-bottom: 60px; }
+        .section-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .view-all { font-weight: 600; color: var(--secondary); font-size: 0.9rem; }
+        .resources-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .resource-card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--white); transition: transform 0.3s; }
+        .resource-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .resource-img { position: relative; height: 160px; }
+        .resource-img img { width: 100%; height: 100%; object-fit: cover; }
+        .resource-tag { position: absolute; bottom: -10px; left: 15px; padding: 5px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; color: var(--white); }
+        .tag-green { background: var(--green); }
+        .tag-yellow { background: var(--yellow); color: var(--primary); }
+        .tag-blue { background: var(--secondary); }
+        .resource-content { padding: 20px 15px 15px; }
+        .resource-content h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--primary); }
+        .resource-content p { font-size: 0.85rem; color: #666; margin-bottom: 15px; }
+        .read-more { color: var(--secondary); font-weight: 600; font-size: 0.85rem; }
+
+        .get-involved-banner {
+            background: var(--primary); 
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+        .gi-image { flex: 1; min-height: 350px; position: relative; }
+        .gi-image img { width: 100%; height: 100%; object-fit: cover; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
+        .gi-content { flex: 1.5; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .gi-content h2 { color: var(--white); font-size: 2rem; margin-bottom: 10px; }
+        .gi-content p { margin-bottom: 30px; font-size: 1rem; opacity: 0.9; }
+        .gi-actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+        .gi-item { display: flex; align-items: center; gap: 10px; }
+        .gi-item-icon { width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--yellow); }
+        .gi-item-text { display: flex; flex-direction: column; }
+        .gi-item-text strong { font-family: var(--font-heading); font-size: 0.9rem; }
+        .gi-item-text span { font-size: 0.75rem; opacity: 0.8; }
+
+        .news-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 60px; }
+        .news-card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--white); }
+        .news-img { height: 150px; }
+        .news-img img { width: 100%; height: 100%; object-fit: cover; }
+        .news-content { padding: 15px; }
+        .news-date { font-size: 0.75rem; color: var(--secondary); font-weight: 600; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+        .news-content h4 { font-size: 1rem; margin-bottom: 10px; line-height: 1.3; }
+        .news-content p { font-size: 0.85rem; color: #666; margin-bottom: 15px; }
+
+        /* ========== FOOTER ========== */
+        .site-footer { background-color: var(--primary); color: var(--white); padding: 60px 0 20px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+        
+        .footer-logo {
+            height: 120px; /* Adjusted for footer */
+            width: auto;
+            max-width: 250px;
+            object-fit: contain;
+            margin-bottom: 5px;
+            /* If your logo is dark, uncomment the next line to invert it for the dark footer */
+            /* filter: brightness(0) invert(1); */
+        }
+
+        .footer-brand p { font-size: 0.9rem; opacity: 0.8; margin-top: 10px; max-width: 300px; }
+        .footer-column h4 { color: var(--white); font-size: 1.1rem; margin-bottom: 20px; }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 12px; }
+        .footer-column ul a { font-size: 0.9rem; opacity: 0.8; transition: opacity 0.3s; }
+        .footer-column ul a:hover { opacity: 1; color: var(--yellow); }
+        .footer-contact li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px; }
+        .footer-contact i { color: var(--yellow); margin-top: 4px; }
+        .newsletter-form { display: flex; margin-top: 15px; }
+        .newsletter-form input { flex: 1; padding: 10px 15px; border: none; border-radius: 4px 0 0 4px; font-family: var(--font-body); outline: none; }
+        .newsletter-form button { background: var(--green); color: var(--white); border: none; padding: 10px 20px; border-radius: 0 4px 4px 0; cursor: pointer; font-weight: 600; }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 35px; height: 35px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .social-icons a:hover { background: var(--yellow); color: var(--primary); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; opacity: 0.8; flex-wrap: wrap; gap: 10px; }
+        .footer-bottom-links a { margin: 0 10px; }
+
+        /* ========== MOBILE BOTTOM NAV ========== */
+        .mobile-bottom-nav { display: none; }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .mission-vision { grid-template-columns: 1fr 1fr; }
+            .mv-image-card { grid-column: span 2; min-height: 250px; }
+            .split-section { grid-template-columns: 1fr; }
+            .resources-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .get-involved-banner { flex-direction: column; }
+            .gi-image { min-height: 250px; }
+            .gi-image img { clip-path: none; }
+        }
+
+        @media (max-width: 768px) {
+            /* Header changes */
+            .desktop-nav, .header-actions { display: none; }
+            .mobile-header-actions { display: flex; }
+            .header-inner { justify-content: space-between; } 
+
+            body { padding-bottom: 70px; }
+
+            /* Mobile Bottom Nav */
+            .mobile-bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px 0;
+                z-index: 1000;
+            }
+            .mobile-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #777;
+                font-size: 0.7rem;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+            .mobile-nav-item i { font-size: 1.4rem; margin-bottom: 4px; }
+            .mobile-nav-item.active, .mobile-nav-item:hover { color: var(--primary); }
+
+            /* Hero changes for mobile */
+            .hero { min-height: 100vh; height: auto; padding: 100px 0; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-content p { font-size: 1rem; }
+            
+            .mission-vision { grid-template-columns: 1fr; }
+            .mv-image-card { grid-column: span 1; }
+            .focus-grid { grid-template-columns: 1fr 1fr; }
+            .impact-stats { flex-direction: column; gap: 20px; }
+            .resources-grid, .news-grid { grid-template-columns: 1fr; }
+            .gi-actions { flex-direction: column; align-items: flex-start; }
+            .gi-content { padding: 30px 20px; }
+
+            /* Footer centering for mobile */
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                text-align: center;
+            }
+            .footer-brand {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .social-icons {
+                justify-content: center;
+            }
+            .newsletter-form {
+                justify-content: center;
+                max-width: 300px;
+                margin: 15px auto 0;
+            }
+            .footer-contact li {
+                justify-content: center;
+            }
+            .footer-bottom { 
+                flex-direction: column; 
+                text-align: center; 
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <!-- Logo Area: Just the image now -->
+            <a href="#" class="logo-placeholder">
+                <img src="nesi.png" alt="HINEI Logo" class="site-logo">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+
+            <!-- Header Actions (Desktop) -->
+            <div class="header-actions">
+                <i class="fas fa-search search-icon" id="desktopSearchBtn"></i>
+                <a href="#get-involved" class="btn btn-yellow">Get Involved</a>
+            </div>
+
+            <!-- Mobile Header Actions -->
+            <div class="mobile-header-actions">
+                <i class="fas fa-search" id="mobileSearchBtn"></i>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div class="mobile-dropdown" id="mobileMenu">
+            <a href="#">Home</a>
+            <a href="about-us.html">About Us</a>
+            <a href="#news">News</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#get-involved" class="btn btn-yellow" style="text-align: center; justify-content: center;">Get Involved</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <!-- Slider Background -->
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Fresh vegetables">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Community gathering">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Healthy food">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Volunteers">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Running active lifestyle">
+            </div>
+        </div>
+
+        <!-- Blue Overlay -->
+        <div class="hero-overlay"></div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1>Take Charge of Your Health.<br><span>Build a Healthier Future.</span></h1>
+            <p>We empower individuals and communities with practical nutrition knowledge and healthy lifestyle skills to prevent noncommunicable diseases and build lasting health independence.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-green"><i class="fas fa-book-open"></i> Explore Nutrition Resources</a>
+                <a href="#" class="btn btn-outline"><i class="fas fa-users"></i> Join Our Mission</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- MISSION & VISION -->
+        <section class="mission-vision" id="about">
+            <div class="mv-card">
+                <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>Our Mission</h3>
+                <p>To empower individuals and communities with the knowledge, skills, and resources to take charge of their own health through nutrition education, while raising awareness of noncommunicable diseases and promoting sustainable, preventive lifestyle practices.</p>
+            </div>
+            <div class="mv-card">
+                <div class="mv-icon"><i class="fas fa-eye"></i></div>
+                <h3>Our Vision</h3>
+                <p>A world where every person has the knowledge and confidence to achieve lasting health independence, and where communities are resilient against the growing burden of noncommunicable diseases.</p>
+            </div>
+            <div class="mv-image-card">
+                <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Community gathering">
+                <div class="mv-image-overlay">
+                    <h3>Healthy Choices Today</h3>
+                    <p>A Stronger Tomorrow</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPLIT SECTION: FOCUS & IMPACT -->
+        <section class="split-section">
+            <div>
+                <h2 class="section-title">Our Focus Areas</h2>
+                <div class="focus-grid">
+                    <div class="focus-item">
+                        <div class="focus-icon"><i class="fas fa-apple-alt"></i></div>
+                        <h4>Nutrition Education</h4>
+                        <p>Better food choices.<br>Healthier lives.</p>
+                    </div>
+                    <div class="focus-item">
+                        <div class="focus-icon"><i class="fas fa-heartbeat"></i></div>
+                        <h4>NCD Prevention</h4>
+                        <p>Know the risks.<br>Take action.</p>
+                    </div>
+                    <div class="focus-item">
+                        <div class="focus-icon"><i class="fas fa-running"></i></div>
+                        <h4>Healthy Lifestyles</h4>
+                        <p>Be active.<br>Avoid harmful habits.</p>
+                    </div>
+                    <div class="focus-item">
+                        <div class="focus-icon"><i class="fas fa-users"></i></div>
+                        <h4>Community Empowerment</h4>
+                        <p>Stronger communities.<br>Greater impact.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="section-title">Our Impact</h2>
+                <div class="impact-section">
+                    <div class="impact-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <h4>12,500+</h4>
+                            <p>People Reached</p>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-book-open"></i>
+                            <h4>45</h4>
+                            <p>Programmes Delivered</p>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-home"></i>
+                            <h4>18</h4>
+                            <p>Communities Supported</p>
+                        </div>
+                    </div>
+                    <div class="impact-footer">
+                        Healthier Individuals | Stronger Communities | Reduced NCD Burden
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED RESOURCES -->
+        <section class="resources-section">
+            <div class="section-header-row">
+                <h2 class="section-title">Featured Resources</h2>
+                <a href="#" class="view-all">View All Resources &rarr;</a>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-img">
+                        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Healthy Plate">
+                        <span class="resource-tag tag-green">Nutrition Guide</span>
+                    </div>
+                    <div class="resource-content">
+                        <h4>The Healthy Plate Guide</h4>
+                        <p>Simple tips for balanced meals using local foods.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-img">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Blood Pressure Monitor">
+                        <span class="resource-tag tag-yellow">NCD Awareness</span>
+                    </div>
+                    <div class="resource-content">
+                        <h4>Know Your Numbers</h4>
+                        <p>Learn about blood pressure, blood glucose and your risk.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-img">
+                        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Person running">
+                        <span class="resource-tag tag-blue">Lifestyle Tips</span>
+                    </div>
+                    <div class="resource-content">
+                        <h4>Be Active, Stay Healthy</h4>
+                        <p>Easy ways to build physical activity into your daily life.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-img">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Fresh vegetables">
+                        <span class="resource-tag tag-green">Food Facts</span>
+                    </div>
+                    <div class="resource-content">
+                        <h4>Local Foods, Big Benefits</h4>
+                        <p>Nutritious, affordable and available in your community.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GET INVOLVED BANNER -->
+        <section class="get-involved-banner" id="get-involved">
+            <div class="gi-image">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Volunteer teaching community">
+            </div>
+            <div class="gi-content">
+                <h2>Get Involved</h2>
+                <p>Together we can create healthier communities and prevent NCDs.</p>
+                <div class="gi-actions">
+                    <div class="gi-item">
+                        <div class="gi-item-icon"><i class="fas fa-hands-helping"></i></div>
+                        <div class="gi-item-text">
+                            <strong>Volunteer</strong>
+                            <span>Share your time and skills.</span>
+                        </div>
+                    </div>
+                    <div class="gi-item">
+                        <div class="gi-item-icon"><i class="fas fa-donate"></i></div>
+                        <div class="gi-item-text">
+                            <strong>Donate</strong>
+                            <span>Support our programmes.</span>
+                        </div>
+                    </div>
+                    <div class="gi-item">
+                        <div class="gi-item-icon"><i class="fas fa-handshake"></i></div>
+                        <div class="gi-item-text">
+                            <strong>Partner</strong>
+                            <span>Work with us for greater impact.</span>
+                        </div>
+                    </div>
+                    <div class="gi-item">
+                        <div class="gi-item-icon"><i class="fas fa-bullhorn"></i></div>
+                        <div class="gi-item-text">
+                            <strong>Advocate</strong>
+                            <span>Spread the word for healthier lives.</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-yellow" style="margin-left: auto;">Learn More &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWS & EVENTS -->
+        <section class="news-section" id="news">
+            <div class="section-header-row">
+                <h2 class="section-title">Latest News & Events</h2>
+                <a href="#" class="view-all">View All News & Events &rarr;</a>
+            </div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Workshop">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date"><i class="far fa-calendar-alt"></i> Apr 28, 2025</div>
+                        <h4>Community Nutrition Workshop in Lilongwe</h4>
+                        <p>Over 120 participants learned practical nutrition tips for healthier families.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="World Health Day">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date"><i class="far fa-calendar-alt"></i> Apr 15, 2025</div>
+                        <h4>World Health Day Campaign</h4>
+                        <p>Our team joined the community to promote healthy lifestyles and NCD prevention.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="School Programme">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date"><i class="far fa-calendar-alt"></i> Apr 05, 2025</div>
+                        <h4>Healthy Schools Programme Launched</h4>
+                        <p>We started nutrition education sessions in 5 primary schools.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Success Story">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date"><i class="far fa-calendar-alt"></i> Mar 28, 2025</div>
+                        <h4>Success Story: A Healthier Family</h4>
+                        <p>How nutrition education helped a family improve their diet and wellbeing.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <!-- Footer Logo: Just the image now -->
+                    <a href="#" class="logo-placeholder">
+                        <img src="nesi1.png" alt="HINEI Logo" class="site-logo footer-logo">
+                    </a>
+                    <p>Empowering Health Through Nutrition</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="#">Nutrition Education</a></li>
+                        <li><a href="#">NCD Awareness</a></li>
+                        <li><a href="#">Programmes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#get-involved">Get Involved</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">Partner with Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Stay Connected</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 15px;">Join our community for updates, health tips and events.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <ul class="footer-contact" style="margin-top: 20px;">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Drive, Lilongwe, Malawi</li>
+                        <li><i class="fas fa-envelope"></i> info@hinei.org</li>
+                        <li><i class="fas fa-phone"></i> +265 99 123 4567</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>&copy; 2025 HINEI. All rights reserved.</div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a> | 
+                    <a href="#">Terms of Use</a> | 
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav class="mobile-bottom-nav">
+        <a href="#" class="mobile-nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#about" class="mobile-nav-item">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a>
+        <a href="#news" class="mobile-nav-item">
+            <i class="fas fa-newspaper"></i>
+            <span>News</span>
+        </a>
+        <a href="#contact" class="mobile-nav-item">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+        <a href="#get-involved" class="mobile-nav-item">
+            <i class="fas fa-hands-helping" style="color: var(--green);"></i>
+            <span style="color: var(--green); font-weight: 600;">Join Us</span>
+        </a>
+    </nav>
+
+    <!-- SEARCH MODAL -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-modal-content">
+            <span class="close-search" id="closeSearch">&times;</span>
+            <h2>Search HINEI</h2>
+            <div class="search-input-wrapper">
+                <input type="text" id="searchInput" placeholder="Type to search (e.g., Nutrition, NCDs, Contact)..." autocomplete="off">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <ul class="search-suggestions" id="searchSuggestions">
+                <!-- Suggestions will be populated via JS -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- 1. HERO SLIDER LOGIC ---
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            // Change image every 4 seconds
+            setInterval(nextSlide, 4000);
+
+            // --- 2. MOBILE MENU TOGGLE ---
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if(mobileMenu.classList.contains('active')){
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // --- 3. SEARCH MODAL LOGIC ---
+            const searchModal = document.getElementById('searchModal');
+            const desktopSearchBtn = document.getElementById('desktopSearchBtn');
+            const mobileSearchBtn = document.getElementById('mobileSearchBtn');
+            const closeSearch = document.getElementById('closeSearch');
+            const searchInput = document.getElementById('searchInput');
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            const searchBtn = document.getElementById('searchBtn');
+
+            // Data for search suggestions
+            const searchData = [
+                { title: "About Us / Our Mission", target: "#about" },
+                { title: "Nutrition Education Resources", target: "#" },
+                { title: "NCD Awareness & Prevention", target: "#" },
+                { title: "Latest News & Events", target: "#news" },
+                { title: "Get Involved / Volunteer", target: "#get-involved" },
+                { title: "Contact Us", target: "#contact" },
+                { title: "The Healthy Plate Guide", target: "#" },
+                { title: "Know Your Numbers (Blood Pressure)", target: "#" }
+            ];
+
+            // Open Modal
+            function openSearch() {
+                searchModal.classList.add('active');
+                searchInput.focus();
+            }
+
+            desktopSearchBtn.addEventListener('click', openSearch);
+            mobileSearchBtn.addEventListener('click', openSearch);
+
+            // Close Modal
+            closeSearch.addEventListener('click', function() {
+                searchModal.classList.remove('active');
+                searchInput.value = '';
+                searchSuggestions.innerHTML = '';
+            });
+
+            // Close on click outside
+            searchModal.addEventListener('click', function(e) {
+                if(e.target === searchModal) {
+                    searchModal.classList.remove('active');
+                    searchInput.value = '';
+                    searchSuggestions.innerHTML = '';
+                }
+            });
+
+            // Typing Suggestions
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value.toLowerCase();
+                searchSuggestions.innerHTML = '';
+                
+                if(query.length > 0) {
+                    const filtered = searchData.filter(item => 
+                        item.title.toLowerCase().includes(query)
+                    );
+
+                    if(filtered.length > 0) {
+                        filtered.forEach(item => {
+                            const li = document.createElement('li');
+                            li.textContent = item.title;
+                            li.addEventListener('click', function() {
+                                // Close modal
+                                searchModal.classList.remove('active');
+                                searchInput.value = '';
+                                searchSuggestions.innerHTML = '';
+                                
+                                // Scroll to target
+                                if(item.target !== "#") {
+                                    const targetElement = document.querySelector(item.target);
+                                    if(targetElement) {
+                                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                } else {
+                                    alert("Navigating to: " + item.title);
+                                }
+                            });
+                            searchSuggestions.appendChild(li);
+                        });
+                    } else {
+                        const li = document.createElement('li');
+                        li.textContent = "No results found.";
+                        li.style.cursor = "default";
+                        searchSuggestions.appendChild(li);
+                    }
+                }
+            });
+
+            // Basic Search Button
+            searchBtn.addEventListener('click', function() {
+                const firstSuggestion = searchSuggestions.querySelector('li');
+                if(firstSuggestion && firstSuggestion.textContent !== "No results found.") {
+                    firstSuggestion.click();
+                }
+            });
+
+            // Enter key triggers search
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    searchBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
